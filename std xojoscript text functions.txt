@@ -1,0 +1,173 @@
+Module Conversions
+
+	Function ToInteger(extends s as String) as Integer
+		return Conversions.ToInteger(s)
+	end function
+
+	Function ToInteger(s As String) As Integer
+
+		Dim tmp As Integer
+		Dim chars() As String =  Split(s, "")
+		Dim isNegative As Boolean
+
+		If chars.ubound < 0 Then
+			Return 0
+		End If
+
+		If chars(0) = "-" Then
+			isNegative  = True
+			chars.remove 0
+		End If
+		If chars(0) = "+" Then
+			isNegative  = False
+			chars.remove 0
+		End If
+
+		For Each char As String In chars
+			If Asc(char) < Asc("0") Or Asc(char) > Asc("9") Then
+				Exit For
+			Else
+				tmp = tmp * 10
+				tmp = tmp + Asc(char) - Asc("0")
+			End If
+		Next
+
+		Return If(isNegative, -tmp, tmp)
+
+	End Function
+
+	Function ToDouble(extends s As String) As Double
+
+		Return Conversions.ToDouble(s)
+
+	End Function
+
+	Function ToDouble(s As String) As Double
+
+		Return Val(s)
+
+	End Function
+
+
+
+	Sub RunUnitTests()
+
+		If True Then
+			Dim s As String 
+			Dim iFuncCall As Integer
+			Dim iExtends As Integer
+
+			s = "-123"
+			iFuncCall = Conversions.ToInteger(s)
+			iExtends = s.ToInteger
+
+			if iExtends = iFuncCall then
+				Print "Func call :" + Str(iFuncCall) + "  Extends :" + Str(iExtends)
+			else
+				Print "extends <> func call - test " + s + " failed"
+			end if
+			
+			s = "+123"
+			iFuncCall = Conversions.ToInteger(s)
+			iExtends = s.ToInteger
+
+			if iExtends = iFuncCall then
+				Print "Func call :" + Str(iFuncCall) + "  Extends :" + Str(iExtends)
+			else
+				Print "extends <> func call - test " + s + " failed"
+			end if
+
+			s = "123"
+			iFuncCall = Conversions.ToInteger(s)
+			iExtends = s.ToInteger
+
+			if iExtends = iFuncCall then
+				Print "Func call :" + Str(iFuncCall) + "  Extends :" + Str(iExtends)
+			else
+				Print "extends <> func call - test " + s + " failed"
+			end if
+
+			s = "123.9"
+			iFuncCall = Conversions.ToInteger(s)
+			iExtends = s.ToInteger
+
+			if iExtends = iFuncCall then
+				Print "Func call :" + Str(iFuncCall) + "  Extends :" + Str(iExtends)
+			else
+				Print "extends <> func call - test " + s + " failed"
+			end if
+
+			s = ".1239"
+			iFuncCall = Conversions.ToInteger(s)
+			iExtends = s.ToInteger
+
+			if iExtends = iFuncCall then
+				Print "Func call :" + Str(iFuncCall) + "  Extends :" + Str(iExtends)
+			else
+				Print "extends <> func call - test " + s + " failed"
+			end if
+		End If
+
+		// ===========================
+
+		if true then
+			Dim s As String 
+			Dim dFuncCall As double
+			Dim dExtends As double
+
+			s = "-123"
+			dFuncCall = Conversions.ToDouble(s)
+			dExtends = s.ToDouble
+
+			if dExtends = dFuncCall then
+				Print "Func call :" + Str(dFuncCall) + "  Extends :" + Str(dExtends)
+			else
+				Print "extends <> func call - test " + s + " failed"
+			end if
+
+			s = "+123"
+			dFuncCall = Conversions.ToDouble(s)
+			dExtends = s.ToDouble
+
+			if dExtends = dFuncCall then
+				Print "Func call :" + Str(dFuncCall) + "  Extends :" + Str(dExtends)
+			else
+				Print "extends <> func call - test " + s + " failed"
+			end if
+
+			s = "123"
+			dFuncCall = Conversions.ToDouble(s)
+			dExtends = s.ToDouble
+
+			if dExtends = dFuncCall then
+				Print "Func call :" + Str(dFuncCall) + "  Extends :" + Str(dExtends)
+			else
+				Print "extends <> func call - test " + s + " failed"
+			end if
+
+			s = "123.456"
+			dFuncCall = Conversions.ToDouble(s)
+			dExtends = s.ToDouble
+
+			if dExtends = dFuncCall then
+				Print "Func call :" + Str(dFuncCall) + "  Extends :" + Str(dExtends)
+			else
+				Print "extends <> func call - test " + s + " failed"
+			end if
+
+			s = ".1239"
+			dFuncCall = Conversions.ToDouble(s)
+			dExtends = s.ToDouble
+
+			if dExtends = dFuncCall then
+				Print "Func call :" + Str(dFuncCall) + "  Extends :" + Str(dExtends)
+			else
+				Print "extends <> func call - test " + s + " failed"
+			end if
+		End If
+	End Sub
+
+End Module
+
+
+Conversions.RunUnitTests()
